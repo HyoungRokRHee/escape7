@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR 코드 퍼즐</title>
+    <title>로기네 탈출 7번</title>
     <style>
         /* 독도체 폰트 불러오기 */
         @font-face {
@@ -65,7 +65,7 @@
     <div id="puzzleSection">
         <!-- 중앙에 오디오 플레이어 배치 -->
         <audio controls>
-            <source src="https://github.com/HyoungRokRHee/escape1/raw/main/movie1.mp3?raw=true" type="audio/mpeg">
+            <source src="https://github.com/HyoungRokRHee/escape7/raw/main/movie1.mp3?raw=true" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
 
@@ -79,12 +79,12 @@
     <script>
         function checkPassword() {
             const password = document.getElementById("passwordInput").value;
-            if (password === "3640") {
+            if (password === "5621") {
                 document.getElementById("puzzleSection").style.display = "block";
                 document.getElementById("passwordInput").style.display = "none";
                 document.getElementById("passwordButton").style.display = "none"; // ID로 버튼 숨기기
                 const passwordMessage = document.getElementById("passwordMessage");
-                passwordMessage.innerHTML = "먼저, 내 기억을 되찾기 위해서는<br>내가 언제부터 기억을 잃었는지,<br>내 마지막 기억이 무엇인지 끄집어내야 한다.";
+                passwordMessage.innerHTML = "그래! 내가 누구인지, 내가 좋아하는게 무엇인지<br>조금씩 기억나고 있어.<br>내가 영화를 엄청 좋아했던거 같애.<br>내가 무슨 영화를 좋아했더라...";
                 passwordMessage.style.marginTop = "20px"; // 아래로 내리기
                 passwordMessage.style.fontSize = "0.6em"; // 글자 크기 절반으로 줄이기
             } else {
@@ -94,7 +94,7 @@
 
         function checkAnswer() {
             const answer = document.getElementById("answerInput").value.toUpperCase();
-            if (answer === "2") {
+            if (answer === "서울의 봄") {
                 document.body.innerHTML = `
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; background-image: url('https://github.com/HyoungRokRHee/escape1/raw/main/whole.png?raw=true'); background-size: cover; margin-top: 30px;">
                         <h1 style="color: red; font-size: 2em; margin-top: 50px;">4층 유년부로 가세요.</h1>
