@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR 코드 퍼즐</title>
+    <style>
+        /* 독도체 폰트 불러오기 */
+        @font-face {
+            font-family: 'Dokdo';
+            src: url('./fonts/Dokdo-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 전체 배경 이미지 설정 */
+        body {
+            background-image: url('https://github.com/HyoungRokRHee/escape1/raw/main/whole.png?raw=true');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+            text-align: center;
+            font-family: 'Dokdo', sans-serif;
+            font-size: 1.2em;
+        }
+        #puzzleSection, #resultSection {
+            display: none;
+            margin-top: 30px; /* 전체 섹션을 아래로 이동 */
+        }
+        input, button {
+            padding: 10px;
+            font-size: 1em;
+            margin: 10px 0;
+        }
+        h2 {
+            margin-top: 50px;
+        }
+        #passwordMessage {
+            font-size: 0.6em; /* 글자 크기 절반으로 줄이기 */
+            margin-top: 20px; /* 아래로 내리기 */
+            line-height: 1.5em; /* 줄 간격 조절 */
+        }
+        #result.success {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 id="passwordMessage">비밀번호를 입력하세요</h2>
+    <input type="text" id="passwordInput" placeholder="비밀번호 입력">
+    <button id="passwordButton" onclick="checkPassword()">확인</button>
+
+    <div id="puzzleSection">
+        <p>정답을 입력하세요. 힌트: 시계</p>
+        <input type="text" id="answerInput">
+        <button onclick="checkAnswer()">확인</button>
+        
+        <!-- 오디오 플레이어 추가 -->
+        <audio controls>
+            <source src="https://github.com/HyoungRokRHee/escape1/raw/main/movie1.mp3?raw=true" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <p id="result"></p>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById("passwordInput").value;
+            if (password === "3640") {
+                document.getElementById("puzzleSection").style.display = "block";
+                document.getElementById("passwordInput").style.display = "none";
+                document.getElementById("passwordButton").style.display = "none"; // ID로 버튼 숨기기
+                const passwordMessage = document.getElementById("passwordMessage");
+                passwordMessage.innerHTML = "먼저, 내 기억을 되찾기 위해서는<br>내가 언제부터 기억을 잃었는지,<br>내 마지막 기억이 무엇인지 끄집어내야 한다.";
+                passwordMessage.style.marginTop = "20px"; // 아래로 내리기
+                passwordMessage.style.fontSize = "0.6em"; // 글자 크기 절반으로 줄이기
+            } else {
+                alert("비밀번호가 틀렸습니다. 다시 시도하세요.");
+            }
+        }
+
+        function checkAnswer() {
+            const answer = document.getElementById("answerInput").value.toUpperCase();
+            if (answer === "2") {
+                document.body.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; background-image: url('https://github.com/HyoungRokRHee/escape1/raw/main/whole.png?raw=true'); background-size: cover; margin-top: 30px;">
+                        <h1 style="color: red; font-size: 2em; margin-top: 50px;">4층 유년부로 가세요.</h1>
+                        <h2 style="color: red; font-size: 1.5em; margin-top: 20px;">비밀번호: 2290</h2>
+                    </div>
+                `;
+            } else {
+                const result = document.getElementById("result");
+                result.textContent = "틀렸습니다. 다시 시도하세요.";
+                result.className = "";
+            }
+        }
+    </script>
+
+</body>
+</html>
