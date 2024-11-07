@@ -33,6 +33,9 @@
         #puzzleSection, #resultSection {
             display: none;
             margin-top: 30px; /* 전체 섹션을 아래로 이동 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         input, button {
             padding: 10px;
@@ -51,8 +54,8 @@
             color: red;
             font-weight: bold;
         }
-        audio {
-            margin-top: 30px;
+        audio, #answerInput, button {
+            margin: 5px 0; /* 요소 간 간격 추가 */
         }
     </style>
 </head>
@@ -65,12 +68,12 @@
     <div id="puzzleSection">
         <!-- 중앙에 오디오 플레이어 배치 -->
         <audio controls>
-            <source src="https://github.com/HyoungRokRHee/escape7/raw/main/movie1.mp3?raw=true" type="audio/mpeg">
+            <source src="https://github.com/HyoungRokRHee/escape1/raw/main/movie1.mp3?raw=true" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
 
         <!-- 정답 입력란 -->
-        <input type="text" id="answerInput" placeholder="정답 입력">
+        <input type="text" id="answerInput" placeholder="정답 입력" style="margin-top: 20px;">
         <button onclick="checkAnswer()">확인</button>
     </div>
 
@@ -79,8 +82,8 @@
     <script>
         function checkPassword() {
             const password = document.getElementById("passwordInput").value;
-            if (password === "3640") {
-                document.getElementById("puzzleSection").style.display = "block";
+            if (password === "5621") {
+                document.getElementById("puzzleSection").style.display = "flex";
                 document.getElementById("passwordInput").style.display = "none";
                 document.getElementById("passwordButton").style.display = "none"; // ID로 버튼 숨기기
                 const passwordMessage = document.getElementById("passwordMessage");
@@ -94,11 +97,11 @@
 
         function checkAnswer() {
             const answer = document.getElementById("answerInput").value.toUpperCase();
-            if (answer === "서울의 봄") {
+            if (answer === "2") {
                 document.body.innerHTML = `
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; background-image: url('https://github.com/HyoungRokRHee/escape1/raw/main/whole.png?raw=true'); background-size: cover; margin-top: 30px;">
-                        <h1 style="color: red; font-size: 2em; margin-top: 50px;">4층 유년부로 가세요.</h1>
-                        <h2 style="color: red; font-size: 1.5em; margin-top: 20px;">비밀번호: 2290</h2>
+                        <h1 style="color: red; font-size: 2em; margin-top: 50px;">3층 새가족실로 가세요.</h1>
+                        <h2 style="color: red; font-size: 1.5em; margin-top: 20px;">비밀번호: 7777</h2>
                     </div>
                 `;
             } else {
