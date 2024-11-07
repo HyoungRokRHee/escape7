@@ -54,9 +54,6 @@
         audio {
             margin-top: 30px;
         }
-        #answerInput {
-            margin-top: 20px; /* 입력란을 오디오 아래로 내리기 */
-        }
     </style>
 </head>
 <body>
@@ -67,7 +64,7 @@
 
     <div id="puzzleSection">
         <!-- 중앙에 오디오 플레이어 배치 -->
-        <audio controls>
+        <audio controls id="audioPlayer">
             <source src="https://github.com/HyoungRokRHee/escape7/raw/main/movie1.mp3?raw=true" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
@@ -80,6 +77,8 @@
     <p id="result"></p>
 
     <script>
+        let stage = 1; // 현재 단계 추적
+
         function checkPassword() {
             const password = document.getElementById("passwordInput").value;
             if (password === "5621") {
@@ -97,7 +96,17 @@
 
         function checkAnswer() {
             const answer = document.getElementById("answerInput").value.toUpperCase();
-            if (answer === "서울의 봄") {
+
+            if (stage === 1 && answer === "서울의 봄") {
+                // 두 번째 단계로 이동
+                stage = 2;
+                loadNextPuzzle("https://github.com/HyoungRokRHee/escape7/raw/main/movie2.mp3?raw=true", "베테랑2");
+            } else if (stage === 2 && answer === "베테랑2") {
+                // 세 번째 단계로 이동
+                stage = 3;
+                loadNextPuzzle("https://github.com/HyoungRokRHee/escape7/raw/main/movie3.mp3?raw=true", "파일럿");
+            } else if (stage === 3 && answer === "파일럿") {
+                // 마지막 페이지로 이동
                 document.body.innerHTML = `
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; background-image: url('https://github.com/HyoungRokRHee/escape1/raw/main/whole.png?raw=true'); background-size: cover; margin-top: 30px;">
                         <h1 style="color: red; font-size: 2em; margin-top: 50px;">4층 유년부로 가세요.</h1>
@@ -109,6 +118,19 @@
                 result.textContent = "틀렸습니다. 다시 시도하세요.";
                 result.className = "";
             }
+        }
+
+        function loadNextPuzzle(audioSrc, nextAnswer) {
+            // 오디오 소스 변경
+            const audioPlayer = document.getElementById("audioPlayer");
+            audioPlayer.src = audioSrc;
+            audioPlayer.load();
+            
+            // 정답 입력란 초기화
+            document.getElementById("answerInput").value = "";
+            
+            // 힌트 업데이트
+            document.getElementById("result").textContent = ""; // 결과 메시지 초기화
         }
     </script>
 
