@@ -67,7 +67,7 @@
 
     <div id="puzzleSection">
         <!-- 중앙에 오디오 플레이어 배치 -->
-        <audio controls>
+        <audio id="audioPlayer" controls>
             <source src="https://github.com/HyoungRokRHee/escape1/raw/main/movie1.mp3?raw=true" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
@@ -80,16 +80,18 @@
     <p id="result"></p>
 
     <script>
+        let currentStage = 1; // 현재 단계 변수
+
         function checkPassword() {
             const password = document.getElementById("passwordInput").value;
             if (password === "5621") {
                 document.getElementById("puzzleSection").style.display = "flex";
                 document.getElementById("passwordInput").style.display = "none";
-                document.getElementById("passwordButton").style.display = "none"; // ID로 버튼 숨기기
+                document.getElementById("passwordButton").style.display = "none";
                 const passwordMessage = document.getElementById("passwordMessage");
                 passwordMessage.innerHTML = "먼저, 내 기억을 되찾기 위해서는<br>내가 언제부터 기억을 잃었는지,<br>내 마지막 기억이 무엇인지 끄집어내야 한다.";
-                passwordMessage.style.marginTop = "20px"; // 아래로 내리기
-                passwordMessage.style.fontSize = "0.6em"; // 글자 크기 절반으로 줄이기
+                passwordMessage.style.marginTop = "20px";
+                passwordMessage.style.fontSize = "0.6em";
             } else {
                 alert("비밀번호가 틀렸습니다. 다시 시도하세요.");
             }
@@ -97,18 +99,35 @@
 
         function checkAnswer() {
             const answer = document.getElementById("answerInput").value.toUpperCase();
-            if (answer === "2") {
-                document.body.innerHTML = `
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; background-image: url('https://github.com/HyoungRokRHee/escape1/raw/main/whole.png?raw=true'); background-size: cover; margin-top: 30px;">
-                        <h1 style="color: red; font-size: 2em; margin-top: 50px;">3층 새가족실로 가세요.</h1>
-                        <h2 style="color: red; font-size: 1.5em; margin-top: 20px;">비밀번호: 7777</h2>
-                    </div>
-                `;
+            
+            if (currentStage === 1 && answer === "2") {
+                moveToNextStage("https://github.com/HyoungRokRHee/escape1/raw/main/movie2.mp3?raw=true", "베테랑2", 2);
+            } else if (currentStage === 2 && answer === "베테랑2") {
+                moveToNextStage("https://github.com/HyoungRokRHee/escape1/raw/main/movie3.mp3?raw=true", "파일럿", 3);
+            } else if (currentStage === 3 && answer === "파일럿") {
+                showFinalPage();
             } else {
                 const result = document.getElementById("result");
                 result.textContent = "틀렸습니다. 다시 시도하세요.";
                 result.className = "";
             }
+        }
+
+        function moveToNextStage(audioSrc, nextAnswer, stage) {
+            document.getElementById("audioPlayer").src = audioSrc;
+            document.getElementById("audioPlayer").play();
+            document.getElementById("answerInput").value = ""; // 입력란 초기화
+            currentStage = stage;
+            correctAnswer = nextAnswer; // 다음 정답 설정
+        }
+
+        function showFinalPage() {
+            document.body.innerHTML = `
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; background-image: url('https://github.com/HyoungRokRHee/escape1/raw/main/whole.png?raw=true'); background-size: cover; margin-top: 30px;">
+                    <h1 style="color: red; font-size: 2em; margin-top: 50px;">3층 새가족실로 가세요.</h1>
+                    <h2 style="color: red; font-size: 1.5em; margin-top: 20px;">비밀번호: 7777</h2>
+                </div>
+            `;
         }
     </script>
 
