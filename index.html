@@ -54,6 +54,11 @@
         audio {
             margin-top: 30px;
         }
+        .stage-indicator {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -63,6 +68,9 @@
     <button id="passwordButton" onclick="checkPassword()">확인</button>
 
     <div id="puzzleSection">
+        <!-- 스테이지 표시 -->
+        <div class="stage-indicator" id="stageIndicator">1 Stage</div>
+
         <!-- 중앙에 오디오 플레이어 배치 -->
         <audio controls id="audioPlayer">
             <source src="https://github.com/HyoungRokRHee/escape7/raw/main/movie1.mp3?raw=true" type="audio/mpeg">
@@ -100,10 +108,12 @@
             if (stage === 1 && answer === "서울의 봄") {
                 // 두 번째 단계로 이동
                 stage = 2;
+                updateStageIndicator(); // 스테이지 표시 업데이트
                 loadNextPuzzle("https://github.com/HyoungRokRHee/escape7/raw/main/movie2.mp3?raw=true", "베테랑2");
             } else if (stage === 2 && answer === "베테랑2") {
                 // 세 번째 단계로 이동
                 stage = 3;
+                updateStageIndicator(); // 스테이지 표시 업데이트
                 loadNextPuzzle("https://github.com/HyoungRokRHee/escape7/raw/main/movie3.mp3?raw=true", "파일럿");
             } else if (stage === 3 && answer === "파일럿") {
                 // 마지막 페이지로 이동
@@ -131,6 +141,11 @@
             
             // 힌트 업데이트
             document.getElementById("result").textContent = ""; // 결과 메시지 초기화
+        }
+
+        function updateStageIndicator() {
+            const stageIndicator = document.getElementById("stageIndicator");
+            stageIndicator.textContent = `${stage} Stage`; // 현재 스테이지 업데이트
         }
     </script>
 
